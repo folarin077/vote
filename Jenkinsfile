@@ -63,7 +63,8 @@ def getMsName(){
 }
 
 def getTag(){
- sh "ls -l"
+ # sh "echo 'vote:latest' > vote:latest "
+  
  version = "latest"
  print "version: ${version}"
 
