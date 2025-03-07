@@ -64,7 +64,7 @@ def getMsName(){
 
 def getTag(){
  sh "ls -l"
- version = "1.0.0"
+ version = "latest"
  print "version: ${version}"
 
  def tag = ""
