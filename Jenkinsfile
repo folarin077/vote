@@ -73,7 +73,7 @@ def tag = ""
   } else if(env.BRANCH_NAME == "develop"){
     tag = "${version}-develop"
   } else {
-    tag = "${version}-${env.BRANCH_NAME}"
+    tag = "${version}"
   }
     
 return tag 
