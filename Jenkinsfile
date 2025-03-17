@@ -67,7 +67,7 @@ def getTag(){
  version = "1.0.0"
  print "version: ${version}"
 
-  def branchName = env.BRANCH_NAME ?: "unknown"
+def branchName = env.BRANCH_NAME ?: "unknown"
     def tag = ""
 
     if (branchName == "main"){
