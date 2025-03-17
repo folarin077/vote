@@ -67,19 +67,14 @@ def getTag(){
  version = "1.0.0"
  print "version: ${version}"
 
-def branchName = env.BRANCH_NAME ?: "unknown"
-    def tag = ""
-
-    if (branchName == "main"){
-        tag = version
-    } else if(branchName == "develop"){
-        tag = "${version}-develop"
-    } else if (branchName != "unknown") {
-        tag = "${version}-${branchName}"
-    } else {
-        error("BRANCH_NAME is not set properly!")
-    }
-
-    print "Final tag: ${tag}"
+def tag = ""
+  if (env.BRANCH_NAME == "main"){
+    tag = version
+  } else if(env.BRANCH_NAME == "develop"){
+    tag = "${version}-develop"
+  } else {
+    tag = "${version}-${env.BRANCH_NAME}"
+  }
+    
 return tag 
 }
