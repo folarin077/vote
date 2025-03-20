@@ -1,7 +1,7 @@
-def registry= "557690600815.dkr.ecr.eu-west-2.amazonaws.com"
+def registry= "861276124691.dkr.ecr.us-east-1.amazonaws.com"
 def tag = ""
 def ms = ""
-def region = "eu-west-2"
+def region = "us-east-1"
 
 pipeline{
     agent any
