@@ -1,23 +1,25 @@
 def registry= "861276124691.dkr.ecr.us-east-1.amazonaws.co"
+def repoName = "vote"
+def region = "us-east-1"
 def tag = ""
 def ms = ""
-def region = "us-east-1"
-def repoName = "vote"
+
 pipeline{
     agent any
     stages{
         stage("init"){
             steps{
                 script{
-                    tag = getTag()
-                    ms = getMsName()
+                    tag = getTag() ?: "latest"
+                    ms = getMsName() ?: "vote"
                 }
             }
         }
         stage("Build Docker image"){
             steps{
                 script{
-                    sh "docker build . -t ${registry}/${ms}:${tag}"
+                   def imageTag = "${registry}/${repoName}:${tag}"
+                   sh "docker build -t ${imageTag} ."
                 }
             }
         }
@@ -36,7 +38,7 @@ pipeline{
             steps{
                 script{
                     withAWS(region:"$region",credentials:'aws_creds'){
-                        sh "docker push ${registry}/${ms}:${tag}"
+                        sh "docker push ${registry}/vote-image:${tag}"
                     }
                 }
             }
@@ -67,14 +69,13 @@ def getTag(){
  version = "1.0.0"
  print "version: ${version}"
 
-def tag = ""
+ def tag = ""
   if (env.BRANCH_NAME == "main"){
     tag = version
   } else if(env.BRANCH_NAME == "develop"){
     tag = "${version}-develop"
   } else {
-     tag = "${version}-${env.BRANCH_NAME}"
+    tag = "${version}-${env.BRANCH_NAME}"
   }
-    
 return tag 
-}
+}a
