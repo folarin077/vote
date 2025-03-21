@@ -1,4 +1,4 @@
-def registry= "861276124691.dkr.ecr.us-east-1.amazonaws.com"
+def registry= "861276124691.dkr.ecr.us-east-1.amazonaws.co"
 def tag = ""
 def ms = ""
 def region = "us-east-1"
