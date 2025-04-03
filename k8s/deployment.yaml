@@ -1,10 +1,15 @@
 apiVersion: apps/v1
+kind: Namespace
+metadata:
+  name: vote
+---
+
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
     app: vote
   name: vote
-  namespace: vote
 spec:
   replicas: 1
   selector:
