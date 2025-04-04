@@ -42,6 +42,28 @@ pipeline{
             }
         }
 
+        stage("Create EKS Cluster") {
+            steps{
+                script{
+                    withAWS(region: "$region", credentials: 'aws_creds') {
+                // Check if the cluster already exists (optional, avoids re-creating)
+                        def clusterExists = sh(script: "eksctl get cluster --name vote-dev --region ${region} || echo 'Cluster does not exist'", returnStdout: true).trim()
+                
+                        if (clusterExists.contains('Cluster does not exist')) {
+                    // Create the EKS cluster if it doesn't exist
+                            sh """
+                            eksctl create cluster --name vote-dev --region ${region} --nodegroup-name my-nodes --node-type t3.small --managed --nodes 2
+                            """
+                            echo "EKS Cluster 'vote-dev' created successfully."
+                        } else {
+                            echo "EKS Cluster 'vote-dev' already exists."
+                        }
+                    }
+                }
+            }
+        }
+
+        
         stage("Deploy to Dev"){
             when{branch 'develop'}
             steps{
