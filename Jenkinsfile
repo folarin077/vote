@@ -72,7 +72,7 @@ pipeline{
                         sh "aws eks update-kubeconfig --name vote-dev"
                         sh 'curl -O https://s3.us-west-2.amazonaws.com/amazon-eks/1.28.5/2024-01-04/bin/linux/amd64/kubectl'  
                         sh 'chmod u+x ./kubectl'
-                        sh "kubectl get deployment redis -n vote || kubectl apply -f k8s/Redis.yaml -n vote"
+                        sh "kubectl get deployment redis -n vote || kubectl apply -f k8s/redis.yaml -n vote"
                         sh "kubectl get deployment postgres -n vote || kubectl apply -f k8s/postgres.yaml -n vote"
                         sh "kubectl get deployment postgres-secret -n vote || kubectl apply -f k8s/postgres-secret.yaml -n vote"
                         sh "kubectl get deployment vote -n vote || kubectl apply -f k8s/deployment.yaml -n vote"
